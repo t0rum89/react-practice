@@ -1,15 +1,23 @@
 import React from "react";
+import styled from "styled-components";
 
-const Input = (props) => {
-  const { text, name, type, placeholder } = props;
+const InputWrapper = styled.div`
+  input {
+    height: 25px;
+  }
+`;
 
+const Input = ({ text, name, type, placeholder }) => {
   return (
-    <>
-      <label htmlFor={name}>
-        <b>{text}</b>
-      </label>
-      <input type={type} placeholder={placeholder} name={name} />
-    </>
+    <InputWrapper>
+      <>
+        <label htmlFor={name}>
+          <b>{text}</b>
+        </label>
+        <br />
+        <input type={type} placeholder={placeholder} name={name} />
+      </>
+    </InputWrapper>
   );
 };
 

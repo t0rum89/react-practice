@@ -11,9 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        MyContext
         <Route path="/login" element={<Login />} />
-        MyContextProvider
         <Route path="/registration" element={<Registration />} />
       </Routes>
     </>

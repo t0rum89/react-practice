@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { DataProvider } from "./DataContext";
 import styled, { createGlobalStyle } from "styled-components";
 
 const Global = createGlobalStyle`
@@ -16,11 +15,9 @@ const Global = createGlobalStyle`
 ReactDOM.render(
   <>
     <Global />
-    <DataProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </DataProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </>,
   document.getElementById("root")
 );

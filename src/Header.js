@@ -10,14 +10,14 @@ const HeaderWrapper = styled.header`
   color: white;
   padding: 10px;
 
-  & a {
+  a {
     color: white;
     text-decoration: none;
     outline: none;
     margin-right: 20px;
   }
 
-  & a:last-child {
+  a:last-child {
     margin-right: 0px;
   }
 `;

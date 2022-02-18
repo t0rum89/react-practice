@@ -2,6 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { useTranslation } from "react-i18next";
+
 const HomeWrapper = styled.div`
   text-align: center;
   h1 {
@@ -11,11 +13,12 @@ const HomeWrapper = styled.div`
 `;
 
 const Home = () => {
+  const { t, i18n } = useTranslation("common");
   return (
     <>
       <HomeWrapper>
-        <h1>Home</h1>
-        <p>This is demo app with login and registration</p>
+        <h1>{t("home.title")}</h1>
+        <p>{t("home.description")}</p>
       </HomeWrapper>
     </>
   );

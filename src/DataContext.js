@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-const MyContext = React.createContext({});
+export const MyContext = React.createContext({});
 
-const Provider = ({ children, initialValues = {}, initialErrors = {} }) => {
+const Provider = ({ children, initialValues = {}, validationSchema = {} }) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
@@ -11,7 +11,40 @@ const Provider = ({ children, initialValues = {}, initialErrors = {} }) => {
     setValues({ ...values, [name]: value });
   };
 
-  console.log(values);
+  const validation = () => {
+    const invalidFields = {};
+
+    Object.keys(validationSchema).forEach((key) => {
+      const fieldConfig = validationSchema[key];
+      if (!!fieldConfig) {
+        for (let i = 0; i < fieldConfig.length; i++) {
+          const rule = fieldConfig[i];
+          const { errorText, valid } = rule(values[key], values);
+          if (!valid) {
+            invalidFields[key] = errorText;
+            break;
+          }
+        }
+      }
+    });
+
+    setErrors(invalidFields);
+    return invalidFields;
+  };
+
+  const validate = (callback) => {
+    const validationResult = validation();
+    const isValid = Object.keys(validationResult).length === 0;
+    setIsValid(isValid);
+    callback(isValid, validationResult);
+  };
+
+  const buttonHandler = () => {
+    validate((isValid, errors2) => {
+      console.log(isValid, errors2);
+    });
+    console.log(values);
+  };
 
   return (
     <MyContext.Provider
@@ -23,6 +56,9 @@ const Provider = ({ children, initialValues = {}, initialErrors = {} }) => {
         setValue,
         isValid,
         setIsValid,
+        validate,
+        validation,
+        buttonHandler,
       }}
     >
       {children}
